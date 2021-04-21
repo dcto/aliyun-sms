@@ -1,0 +1,35 @@
+{
+    "name": "varimax/aliyun-sms",
+    "description": "Varimax AlibabaCloud SMS SDK",
+    "type": "project",
+    "keywords": [
+        "AlibabaCloud",
+        "AlibabaCloud-SMS",
+        "阿里云国际短信接口SDK"
+    ],
+    "license": "MIT",
+    "prefer-stable": true,
+    "minimum-stability": "dev",
+    "homepage": "http://www.varimax.cn",
+    "version": "v1.3",
+    "support": {
+        "issues": "https://github.com/dcto/AlibabaCloud-SMS/issues",
+        "source": "https://github.com/dcto/AlibabaCloud-SMS"
+    },
+    "authors": [
+        {
+            "name": "Sem.DC",
+            "email": "varimaxs@gmail.com"
+        }
+    ],
+
+    "require": {
+        "alibabacloud/client":"1.*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "Varimax\\Aliyun\\": "src/"
+        }
+    }
+}
