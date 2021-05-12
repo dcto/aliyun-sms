@@ -20,8 +20,15 @@ class Sms {
 
     /**
      * request query
+     * @var array
      */
     protected $query = array();
+
+    /**
+     * 
+     * @var \AlibabaCloud\Client\Result\Result
+     */
+    protected $callback = null;
 
 
     public function __construct(array $config = array())
@@ -149,7 +156,7 @@ class Sms {
 
     /**
      * send sms
-     * @return \AlibabaCloud\Client\Result\Result
+     * @return bool
      */
     public function send($phone = null, $content = null)
     {
@@ -161,10 +168,20 @@ class Sms {
             $this->from();
             $this->action('SendMessageWithTemplate');
         }else{
-
             $this->action('SendMessageToGlobe');
         }
-        return $this->client()->request();
+        $this->callback = $this->client()->request();
+        
+        return $this->callback('ResponseCode') == 'OK';
+    }
+
+    /**
+     * get send sms result
+     * @return \AlibabaCloud\Client\Result\Result|string
+     */
+    public function callback($item = null)
+    {
+        return $item  && $this->{__FUNCTION__} ? $this->{__FUNCTION__}->$item : $this->{__FUNCTION__};
     }
 
     /**
