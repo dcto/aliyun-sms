@@ -13,7 +13,7 @@ class Sms {
         'accessSecret'=> null,
         'action'      => null,
         'host'        => 'dysmsapi.cn-hangzhou.aliyuncs.com',
-        'from'        => '短信签名',//送方标识。发往中国传入签名，请在控制台申请短信签名；发往非中国地区传入senderId。
+        'from'        => 'senderId',//送方标识。发往中国传入签名，请在控制台申请短信签名；发往非中国地区传入senderId。
         'regionId'    => 'cn-hangzhou',
         'version'     => '2018-05-01',
     );
@@ -96,9 +96,10 @@ class Sms {
      * @param mixed $signature 
      * @return array|$this 
      */
-    public function from($signature)
+    public function from($signature = null)
     {
-        return $this->query('From', $signature);
+        $signature && $this->config('from', $signature);
+        return $this->query('From', $this->config('from'));
     }
 
     /**
@@ -157,10 +158,10 @@ class Sms {
             is_array($content) ? $this->template($content, $this->config('deafultTemplate')) : $this->message($content);
         }
         if($this->query('TemplateCode')){
-            $this->from($this->config('from'));
+            $this->from();
             $this->action('SendMessageWithTemplate');
         }else{
-            $this->query('senderId');
+
             $this->action('SendMessageToGlobe');
         }
         return $this->client()->request();
